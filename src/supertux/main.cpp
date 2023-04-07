@@ -497,6 +497,9 @@ Main::launch_game(const CommandLineArguments& args)
   m_sound_manager->set_sound_volume(g_config->sound_volume);
   m_sound_manager->set_music_volume(g_config->music_volume);
 
+  s_timelog.log("addons");
+  m_addon_manager.reset(new AddonManager("addons", g_config->addons));
+
   s_timelog.log("scripting");
   m_squirrel_virtual_machine.reset(new SquirrelVirtualMachine(g_config->enable_script_debugger));
 
@@ -507,9 +510,6 @@ Main::launch_game(const CommandLineArguments& args)
 
   s_timelog.log("integrations");
   Integration::setup();
-
-  s_timelog.log("addons");
-  m_addon_manager.reset(new AddonManager("addons", g_config->addons));
 
   m_console.reset(new Console(*m_console_buffer));
 
