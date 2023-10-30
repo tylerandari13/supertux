@@ -144,8 +144,10 @@ WorldMapSector::setup()
     // doesn't exist or erroneous; do nothing
   }
 
-  if (!m_init_script.empty())
+  if (!m_init_script.empty()) {
     m_squirrel_environment->run_script(m_init_script, "WorldMapSector::init");
+    m_init_script = "";
+  }
 }
 
 void
